@@ -58,13 +58,14 @@ class Campaign {
     }
     async _sortData (pledges, socials, patronStatusFilter){
 
-        pledges = pledges.filter(p => (patronStatusFilter || POSSIBLE_PATRON_STATUSES).includes(p.attributes.patron_status))
+        pledges = pledges?.filter(p => (patronStatusFilter || POSSIBLE_PATRON_STATUSES).includes(p.attributes.patron_status))
 
         const patrons = [];
+        if (pledges.length) {
         for ( const pledge of pledges ) {
             patrons.push(this._formatPatron(pledge, socials))
         }
-
+        }
         return patrons;
     }
     /**
